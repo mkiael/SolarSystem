@@ -16,7 +16,7 @@ void SolarSystem::draw()
    glLoadIdentity();
    gluLookAt(0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   for (ICelestialBodySP spCelestialBody : m_celestialBodies)
+   for (auto spCelestialBody : m_celestialBodies)
    {
       spCelestialBody->draw();
    }

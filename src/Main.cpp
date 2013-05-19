@@ -1,4 +1,6 @@
 #include <GL/glfw.h>
+#include "ISolarSystem.h"
+#include "BigBang.h"
 
 void init()
 {
@@ -24,32 +26,20 @@ void init()
    glMatrixMode (GL_MODELVIEW);
 }
 
-GLUquadric* quad = gluNewQuadric();
-
-void draw()
-{
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   glLoadIdentity();
-   gluLookAt(0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
-   gluSphere(quad, 2.0, 12, 12);
-
-   glfwSwapBuffers();
-}
-
 int main(int argc, char** argv)
 {
-
    glfwInit();
 
    glfwOpenWindow(500, 500, 0, 0, 0, 0, 0, 0, GLFW_WINDOW);
 
    init();
 
+   ISolarSystemSP spSolarSystem(BigBang::bang());
+
    bool isRunning = true;
    while (isRunning)
    {
-      draw();
+      spSolarSystem->draw();
       isRunning = !glfwGetKey( GLFW_KEY_ESC );
    }
 

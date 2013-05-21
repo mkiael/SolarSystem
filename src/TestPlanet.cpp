@@ -1,8 +1,9 @@
 #include "TestPlanet.h"
+#include "Spheroid.h"
 
 TestPlanet::TestPlanet()
-: m_quad(gluNewQuadric())
 {
+	m_sphere = new Spheroid(2, 5, 10);
 }
 
 TestPlanet::~TestPlanet()
@@ -11,5 +12,5 @@ TestPlanet::~TestPlanet()
 
 void TestPlanet::draw()
 {
-   gluSphere(m_quad, 2.0, 12, 12);
+   m_sphere->draw(0.,0.,0.);
 }

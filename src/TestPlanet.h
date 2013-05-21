@@ -4,6 +4,8 @@
 #include "ICelestialBody.h"
 #include "GL/glu.h"
 
+class Spheroid;
+
 class TestPlanet : public ICelestialBody
 {
 public:
@@ -16,7 +18,7 @@ public:
 
 private:
 
-   GLUquadric* m_quad;
+   Spheroid* m_sphere;
 
 };
 

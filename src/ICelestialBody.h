@@ -11,7 +11,7 @@ public:
    virtual ~ICelestialBody() {}
 
    //! Draws the celestial body.
-   virtual void draw() = 0;
+   virtual void draw(double delta) = 0;
 
 };
 

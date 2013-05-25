@@ -14,7 +14,7 @@ public:
 
    ~SolarSystem();
 
-   void draw();
+   void draw(double delta);
 
    void addCelestialBody(const ICelestialBodySP& spCelestialBody);
 

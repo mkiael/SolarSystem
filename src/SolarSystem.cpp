@@ -1,5 +1,4 @@
 #include "SolarSystem.h"
-#include "GL/glfw.h"
 
 SolarSystem::SolarSystem()
 : m_celestialBodies()
@@ -10,18 +9,12 @@ SolarSystem::~SolarSystem()
 {
 }
 
-void SolarSystem::draw()
+void SolarSystem::draw(double delta)
 {
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   glLoadIdentity();
-   gluLookAt(0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
    for (auto spCelestialBody : m_celestialBodies)
    {
-      spCelestialBody->draw();
+      spCelestialBody->draw(delta);
    }
-
-   glfwSwapBuffers();
 }
 
 void SolarSystem::addCelestialBody(const ICelestialBodySP& spCelestialBody)

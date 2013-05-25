@@ -1,3 +1,6 @@
+#ifndef SPHEROID_H_
+#define SPHEROID_H_
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <vector>
@@ -17,3 +20,5 @@ protected:
     std::vector<GLfloat> texcoords;
     std::vector<GLushort> indices;
 };
+
+#endif

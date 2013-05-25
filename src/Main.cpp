@@ -21,8 +21,8 @@ void init()
 
    glViewport (0, 0, (GLsizei) 500, (GLsizei) 500);
    glMatrixMode (GL_PROJECTION);
-   glLoadIdentity ();
-   glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+   glLoadIdentity();
+   glFrustum (-1.0, 1.0, -1.0, 1.0, 1.0, 1000.0);
    glMatrixMode (GL_MODELVIEW);
 }
 
@@ -30,17 +30,29 @@ int main(int argc, char** argv)
 {
    glfwInit();
 
-   glfwOpenWindow(500, 500, 0, 0, 0, 0, 0, 0, GLFW_WINDOW);
+   glfwOpenWindow(500, 500, 8, 8, 8, 8, 24, 8, GLFW_WINDOW);
 
    init();
 
    ISolarSystemSP spSolarSystem(BigBang::bang());
 
    bool isRunning = true;
+   double oldTime = glfwGetTime();
    while (isRunning)
    {
-      spSolarSystem->draw();
-      isRunning = !glfwGetKey( GLFW_KEY_ESC );
+      double newTime = glfwGetTime();
+      double delta = newTime - oldTime;
+      oldTime = newTime;
+
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      glLoadIdentity();
+      gluLookAt(0.0, 10.0, 10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+      spSolarSystem->draw(delta);
+
+      glfwSwapBuffers();
+
+      isRunning = !glfwGetKey(GLFW_KEY_ESC);
    }
 
    return 0;

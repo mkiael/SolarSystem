@@ -1,8 +1,9 @@
 #include "Sun.h"
 
 Sun::Sun()
-: m_sphere(4, 10, 20)
+: AbstractCelestialBody()
 {
+   m_mass = 10000000000.0;
 }
 
 Sun::~Sun()
@@ -11,5 +12,6 @@ Sun::~Sun()
 
 void Sun::draw(double delta)
 {
-   m_sphere.draw(0.0f, 0.0f, 0.0f);
+   glTranslatef(m_position.getX(), m_position.getY(), m_position.getZ());
+   m_sphere.draw(0.0, 0.0, 0.0);
 }

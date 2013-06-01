@@ -1,15 +1,14 @@
 #include "Vector.h"
 
-template <typename T>
-Vector<T>::Vector(T x, T y, T z)
+
+Vector::Vector(double x, double y, double z)
 : x(x)
 , y(x)
 , z(z)
 {
 }
 
-template <typename T>
-void Vector<T>::normalize()
+void Vector::normalize()
 {
 	double l = getLength(); 
 	x = x / l;
@@ -17,11 +16,7 @@ void Vector<T>::normalize()
 	z = z / l;
 }
 
-template <typename T>
-double Vector<T>::getLength()
+double Vector::getLength()
 {
 	return sqrt(x*x + y*y + z*z);
 }
-
-template class Vector<int>;
-template class Vector<double>;

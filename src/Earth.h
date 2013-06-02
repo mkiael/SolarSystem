@@ -1,24 +1,19 @@
 #ifndef EARTH_H_
 #define EARTH_H_
 
-#include "ICelestialBody.h"
-#include "Spheroid.h"
+#include "AbstractCelestialBody.h"
 
-class Earth : public ICelestialBody
+class ISolarSystem;
+
+class Earth : public AbstractCelestialBody
 {
 public:
 
    Earth();
 
-   virtual ~Earth();
+   ~Earth();
 
    void draw(double delta);
-
-private:
-
-   Spheroid m_sphere;
-
-   double m_rotAngle;
 
 };
 

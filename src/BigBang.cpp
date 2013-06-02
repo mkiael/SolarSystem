@@ -11,9 +11,11 @@ ISolarSystemSP BigBang::bang()
 {
    SolarSystem* pSolarSystem = new SolarSystem();
 
-   pSolarSystem->addCelestialBody(ICelestialBodySP(new Sun()));
+   Sun* pSun = new Sun();
+   pSolarSystem->addCelestialBody(ICelestialBodySP(pSun));
 
-   pSolarSystem->addCelestialBody(ICelestialBodySP(new Earth()));
+   Earth* pEarth = new Earth();
+   pSolarSystem->addCelestialBody(ICelestialBodySP(pEarth));
 
    return ISolarSystemSP(pSolarSystem);
 }

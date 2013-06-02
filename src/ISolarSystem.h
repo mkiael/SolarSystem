@@ -2,6 +2,8 @@
 #define ISOLARSYSTEM_H_
 
 #include <memory>
+#include <vector>
+#include "ICelestialBody.h"
 
 //! @brief Interface for our solar system.
 class ISolarSystem

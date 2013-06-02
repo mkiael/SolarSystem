@@ -1,10 +1,9 @@
 #ifndef SUN_H_
 #define SUN_H_
 
-#include "ICelestialBody.h"
-#include "Spheroid.h"
+#include "AbstractCelestialBody.h"
 
-class Sun : public ICelestialBody
+class Sun : public AbstractCelestialBody
 {
 public:
 
@@ -13,10 +12,6 @@ public:
    ~Sun();
 
    void draw(double delta);
-
-public:
-
-   Spheroid m_sphere;
 
 };
 

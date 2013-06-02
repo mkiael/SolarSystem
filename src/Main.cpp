@@ -46,9 +46,9 @@ int main(int argc, char** argv)
 
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       glLoadIdentity();
-      gluLookAt(0.0, 10.0, 10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+      gluLookAt(0.0, 0.0, 20.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-      spSolarSystem->draw(delta);
+      spSolarSystem->draw(delta*10.0);
 
       glfwSwapBuffers();
 

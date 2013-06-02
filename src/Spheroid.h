@@ -11,9 +11,11 @@
 class Spheroid
 {
 public:
-	Spheroid(float radius, unsigned int rings, unsigned int sectors);
+	Spheroid(double size);
 	void draw(GLfloat x, GLfloat y, GLfloat z);
 	
+	void resize(double size);
+
 protected:
     std::vector<GLfloat> vertices;
     std::vector<GLfloat> normals;

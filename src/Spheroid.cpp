@@ -1,71 +1,79 @@
 #include "Spheroid.h"
-
-#include "Triangle.h"
 #include "Vertex.h"
 
-double icos_r[12][3] = {   {  1.0,              0.0,              0.0            },
-                           {  0.447213595500,   0.894427191000,   0.0            },
-                           {  0.447213595500,   0.276393202252,   0.850650808354 },
-                           {  0.447213595500,  -0.723606797748,   0.525731112119 },
-                           {  0.447213595500,  -0.723606797748,  -0.525731112119 },
-                           {  0.447213595500,   0.276393202252,  -0.850650808354 },
-                           { -0.447213595500,  -0.894427191000,   0.0            },
-                           { -0.447213595500,  -0.276393202252,   0.850650808354 },
-                           { -0.447213595500,   0.723606797748,   0.525731112119 },
-                           { -0.447213595500,   0.723606797748,  -0.525731112119 },
-                           { -0.447213595500,  -0.276393202252, - 0.850650808354 },
-                           { -1.0,              0.0,              0.0            }} ;
-
-int icos_v [20][3] = { { 0, 1, 2 }, { 0, 2, 3 }, { 0, 3, 4 }, { 0, 4, 5 }, { 0, 5, 1 },
-                       { 1, 8, 2 }, { 2, 7, 3 }, { 3, 6, 4 }, { 4, 10, 5 }, { 5, 9, 1 },
-                       { 1, 9, 8 }, { 2, 8, 7 }, { 3, 7, 6 }, { 4, 6, 10 }, { 5, 10, 9 },
-                       { 11, 9, 10 }, { 11, 8, 9 }, { 11, 7, 8 }, { 11, 6, 7 }, { 11, 10, 6 } } ;
-
-
 Spheroid::Spheroid(double radius)
+: m_radius(radius)
 {
-   resize(radius);
+   create();
 }
 
-void Spheroid::resize(double size)
+void Spheroid::resize(double radius)
 {
-   for(int i = 0; i < 12; ++i)
-   {
-      for(int j = 0; j < 3; ++j)
-      {
-         icos_r[i][j] *= size;
-      }
-   }
+   m_radius = radius;
+   create();
 }
 
-void Spheroid::draw(GLfloat x, GLfloat y, GLfloat z)
+void Spheroid::create()
+{
+   m_triangles.clear();
+
+   // Constants for making a basic icosahedron with radius 1.
+   double X = 0.525731112119133606 * m_radius;
+   double Z = 0.850650808352039932 * m_radius;
+
+   // 12 vertices for all corners
+   std::vector<Vertex> vertices;
+   vertices.push_back(Vertex(-X,    0.0,  Z ));
+   vertices.push_back(Vertex( X,    0.0,  Z ));
+   vertices.push_back(Vertex(-X,    0.0, -Z));
+   vertices.push_back(Vertex( X,    0.0, -Z));
+   vertices.push_back(Vertex( 0.0,  Z,    X));
+   vertices.push_back(Vertex( 0.0,  Z,   -X));
+   vertices.push_back(Vertex( 0.0, -Z,    X));
+   vertices.push_back(Vertex( 0.0, -Z,   -X));
+   vertices.push_back(Vertex( Z,    X,    0.0));
+   vertices.push_back(Vertex(-Z,    X,    0.0));
+   vertices.push_back(Vertex( Z,   -X,    0.0));
+   vertices.push_back(Vertex(-Z,   -X,    0.0));
+
+   //20 Triangles (Make a bit less....MASSIVE?)
+   m_triangles.push_back(Triangle(&vertices[1], &vertices[4], &vertices[0]));
+   m_triangles.push_back(Triangle(&vertices[4], &vertices[9], &vertices[0]));
+   m_triangles.push_back(Triangle(&vertices[4], &vertices[5], &vertices[9]));
+   m_triangles.push_back(Triangle(&vertices[8], &vertices[5], &vertices[4]));
+   m_triangles.push_back(Triangle(&vertices[1], &vertices[8], &vertices[4]));
+
+   m_triangles.push_back(Triangle(&vertices[1], &vertices[10], &vertices[8]));
+   m_triangles.push_back(Triangle(&vertices[10], &vertices[3], &vertices[8]));
+   m_triangles.push_back(Triangle(&vertices[8], &vertices[3], &vertices[5]));
+   m_triangles.push_back(Triangle(&vertices[3], &vertices[2], &vertices[5]));
+   m_triangles.push_back(Triangle(&vertices[3], &vertices[7], &vertices[2]));
+
+   m_triangles.push_back(Triangle(&vertices[3], &vertices[10], &vertices[7]));
+   m_triangles.push_back(Triangle(&vertices[10], &vertices[6], &vertices[7]));
+   m_triangles.push_back(Triangle(&vertices[6], &vertices[11], &vertices[7]));
+   m_triangles.push_back(Triangle(&vertices[6], &vertices[0], &vertices[11]));
+   m_triangles.push_back(Triangle(&vertices[6], &vertices[1], &vertices[0]));
+
+   m_triangles.push_back(Triangle(&vertices[10], &vertices[1], &vertices[6]));
+   m_triangles.push_back(Triangle(&vertices[11], &vertices[0], &vertices[9]));
+   m_triangles.push_back(Triangle(&vertices[2], &vertices[11], &vertices[9]));
+   m_triangles.push_back(Triangle(&vertices[2], &vertices[5], &vertices[9]));
+   m_triangles.push_back(Triangle(&vertices[11], &vertices[2], &vertices[7]));
+
+}
+
+void Spheroid::draw(GLfloat x, GLfloat y, GLfloat z) const
 {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glTranslatef(x,y,z);
 
-    int i ;
-
-    glBegin ( GL_TRIANGLES ) ;
-    for ( i = 0; i < 20; i++ )
+    // Begin drawing 20 sided icosahedron
+    glBegin(GL_TRIANGLES);
+    for(auto T : m_triangles)
     {
-      double length = sqrt(   pow(*icos_r[icos_v[i][2]], 2)
-                            + pow(*icos_r[icos_v[i][1]], 2)
-                            + pow(*icos_r[icos_v[i][0]], 2));
-      double normal[3] = { *icos_r[icos_v[i][2]]/length,
-                           *icos_r[icos_v[i][1]]/length,
-                           *icos_r[icos_v[i][0]]/length};
-      /*
-      normal[0] = ( icos_r[icos_v[i][1]][1] - icos_r[icos_v[i][0]][1] ) * ( icos_r[icos_v[i][2]][2] - icos_r[icos_v[i][0]][2] ) - ( icos_r[icos_v[i][1]][2] - icos_r[icos_v[i][0]][2] ) * ( icos_r[icos_v[i][2]][1] - icos_r[icos_v[i][0]][1] ) ;
-      normal[1] = ( icos_r[icos_v[i][1]][2] - icos_r[icos_v[i][0]][2] ) * ( icos_r[icos_v[i][2]][0] - icos_r[icos_v[i][0]][0] ) - ( icos_r[icos_v[i][1]][0] - icos_r[icos_v[i][0]][0] ) * ( icos_r[icos_v[i][2]][2] - icos_r[icos_v[i][0]][2] ) ;
-      normal[2] = ( icos_r[icos_v[i][1]][0] - icos_r[icos_v[i][0]][0] ) * ( icos_r[icos_v[i][2]][1] - icos_r[icos_v[i][0]][1] ) - ( icos_r[icos_v[i][1]][1] - icos_r[icos_v[i][0]][1] ) * ( icos_r[icos_v[i][2]][0] - icos_r[icos_v[i][0]][0] ) ;
-        */
-        glNormal3dv ( normal ) ;
-        glVertex3dv ( icos_r[icos_v[i][2]] ) ;
-        glVertex3dv ( icos_r[icos_v[i][1]] ) ;
-        glVertex3dv ( icos_r[icos_v[i][0]] ) ;
+       T.draw();
     }
-
-    glEnd () ;
-
+    glEnd();
 }

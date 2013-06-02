@@ -2,25 +2,25 @@
 #define SPHEROID_H_
 
 #include <GL/gl.h>
-#include <GL/glu.h>
 #include <vector>
-#include <cmath>
 
-// Class for drawing a spheroid (http://en.wikipedia.org/wiki/Spheroid)
-// Right now only a sphere:P
+#include "Triangle.h"
+
+// Class for drawing a icosahedron (http://en.wikipedia.org/wiki/icosahedron)
+// Will be Smoother in the future, and have normals!
 class Spheroid
 {
 public:
-	Spheroid(double size);
-	void draw(GLfloat x, GLfloat y, GLfloat z);
+	Spheroid(double radius);
+	void draw(GLfloat x, GLfloat y, GLfloat z) const;
 	
-	void resize(double size);
+	void resize(double radius);
 
-protected:
-    std::vector<GLfloat> vertices;
-    std::vector<GLfloat> normals;
-    std::vector<GLfloat> texcoords;
-    std::vector<GLushort> indices;
+private:
+	 void create();
+
+	 double m_radius;
+    std::vector<Triangle> m_triangles;
 };
 
 #endif

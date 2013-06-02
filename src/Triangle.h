@@ -11,6 +11,7 @@ public:
    void draw() const;
 
 private:
+   void setNormals();
    Vertex m_v1;
    Vertex m_v2;
    Vertex m_v3;

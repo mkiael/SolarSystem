@@ -56,6 +56,16 @@ public:
       return Vector3(m_x * d, m_y * d, m_z * d);
    }
 
+   //The cross product
+   Vector3 operator *(const Vector3& v) const
+   {
+      Vector3 result(   this->m_y*v.getZ() - this->m_z*v.getY(),
+                        this->m_z*v.getX() - this->m_x*v.getZ(),
+                        this->m_x*v.getY() - this->m_y*v.getX());
+
+      return result;
+   }
+
    void normalize()
    {
       double magSq = m_x * m_x + m_y * m_y + m_z * m_z;

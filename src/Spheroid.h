@@ -7,19 +7,21 @@
 #include "Triangle.h"
 
 // Class for drawing a icosahedron (http://en.wikipedia.org/wiki/icosahedron)
-// Will be Smoother in the future, and have normals!
+// Will be Smoother in the future!
 class Spheroid
 {
 public:
-	Spheroid(double radius);
+	Spheroid(double radius, unsigned resolution = 0);
 	void draw(GLfloat x, GLfloat y, GLfloat z) const;
 	
 	void resize(double radius);
+	void changeResolution(unsigned resolution);
 
 private:
 	 void create();
 
 	 double m_radius;
+	 double m_resolution;
     std::vector<Triangle> m_triangles;
 };
 

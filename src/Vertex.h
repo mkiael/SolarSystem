@@ -15,7 +15,7 @@ public:
    {
       return m_position;
    }
-   void setPos(Vector3 &pos)
+   void setPos(Vector3 pos)
    {
       m_position = pos;
    }
@@ -41,6 +41,8 @@ public:
    {
       m_color = color;
    }
+
+
 
 
 private:

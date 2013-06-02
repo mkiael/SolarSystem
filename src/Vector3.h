@@ -56,6 +56,11 @@ public:
       return Vector3(m_x * d, m_y * d, m_z * d);
    }
 
+   Vector3 operator /(double d) const
+   {
+      return Vector3(m_x / d, m_y / d, m_z / d);
+   }
+
    //The cross product
    Vector3 operator *(const Vector3& v) const
    {

@@ -7,7 +7,7 @@
 #include "Triangle.h"
 
 // Class for drawing a icosahedron (http://en.wikipedia.org/wiki/icosahedron)
-// Will be Smoother in the future!
+// Will be EVEN Smoother in the future!
 class Spheroid
 {
 public:
@@ -22,6 +22,8 @@ private:
 
 	 double m_radius;
 	 double m_resolution;
+
+	 void subDivide(unsigned times, Triangle current);
     std::vector<Triangle> m_triangles;
 };
 

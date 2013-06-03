@@ -1,7 +1,7 @@
 #include "AbstractCelestialBody.h"
 
 AbstractCelestialBody::AbstractCelestialBody()
-: m_sphere(2.0)
+: m_sphere(2.0,2)
 , m_position(0.0, 0.0, 0.0)
 , m_velocity(0.0, 0.0, 0.0)
 , m_mass(0.0)

@@ -25,10 +25,20 @@ public:
       return m_v3;
    }
 
+   // Sets "fake" smoothness on/off
+   void setSmooth(bool smooth)
+   {
+      m_smoothOn = smooth;
+   }
+
 private:
-   void setNormals();
+   void setFlatNormals();
+   void setSmoothNormal();
 
    Vertex m_v1;
    Vertex m_v2;
    Vertex m_v3;
+
+   bool m_smoothOn;
 };
+

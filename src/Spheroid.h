@@ -7,7 +7,6 @@
 #include "Triangle.h"
 
 // Class for drawing a icosahedron (http://en.wikipedia.org/wiki/icosahedron)
-// Will be EVEN Smoother in the future!
 class Spheroid
 {
 public:

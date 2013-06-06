@@ -7,6 +7,9 @@ Earth::Earth()
    m_position.setY(0.0);
    m_velocity.setY(1.0);
    m_mass = 1.0;
+
+   setRadius(1);
+   m_sphere.setAmbient(Vector3(0.1, 0.7, 0.7));
 }
 
 Earth::~Earth()

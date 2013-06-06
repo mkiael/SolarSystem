@@ -6,6 +6,11 @@ Spheroid::Spheroid(double radius, unsigned resolution)
 : m_radius(radius)
 , m_resolution(resolution)
 {
+
+   setAmbient(Vector3(0.7, 0.7, 0.7));
+   setEmissive(Vector3(0.0, 0.0, 0.0));
+   setSpecular(Vector3(0.2, 0.2, 0.2));
+
    create();
 }
 
@@ -19,6 +24,30 @@ void Spheroid::changeResolution(unsigned resolution)
 {
    m_resolution = resolution;
    create();
+}
+
+void Spheroid::setEmissive(Vector3 emissive)
+{
+   m_emissive[0] = emissive.getX(); //red
+   m_emissive[1] = emissive.getY(); //green
+   m_emissive[2] = emissive.getZ(); //blue
+   m_emissive[3] = 1.0; //alfa
+}
+
+void Spheroid::setSpecular(Vector3 emissive)
+{
+   m_specular[0] = emissive.getX(); //red
+   m_specular[1] = emissive.getY(); //green
+   m_specular[2] = emissive.getZ(); //blue
+   m_specular[3] = 1.0; //alfa
+}
+
+void Spheroid::setAmbient(Vector3 ambient)
+{
+   m_ambient[0] = ambient.getX(); //red
+   m_ambient[1] = ambient.getY(); //green
+   m_ambient[2] = ambient.getZ(); //blue
+   m_ambient[3] = 1.0; //alfa
 }
 
 void Spheroid::create()
@@ -113,8 +142,15 @@ void Spheroid::draw(GLfloat x, GLfloat y, GLfloat z) const
     glPushMatrix();
     glTranslatef(x,y,z);
 
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, m_ambient);
+    //glMaterialfv(GL.GL_FRONT, GL.GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_specular);
+    glMaterialf(GL_FRONT, GL_SHININESS, 30);
+    glMaterialfv(GL_FRONT, GL_EMISSION, m_emissive);
+
     // Begin drawing 20 sided icosahedron
     glBegin(GL_TRIANGLES);
+
     for(auto T : m_triangles)
     {
        T.draw();

@@ -32,6 +32,11 @@ public:
       return m_mass;
    }
 
+   void setRadius(double radius)
+   {
+      m_sphere.resize(radius);
+   }
+
 protected:
 
    AbstractCelestialBody();

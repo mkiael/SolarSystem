@@ -22,22 +22,20 @@ void SolarSystem::draw(double delta)
    {
       auto spBody = m_celestialBodies[i];
 
-      // Get distance between bodies
-      double r = distance(spSun->getPosition(), spBody->getPosition());
+      Vector3 oldPosition = spBody->getPosition() - spBody->getVelocity() * delta;
 
-      // Calculate the force
-      double f = G * (spSun->getMass() * spBody->getMass()) / (r*r);
+      Vector3 R = spSun->getPosition() - spBody->getPosition();
+
+      double r = vectorMag(R);
+
+      Vector3 F = R * ((G * spSun->getMass() * spBody->getMass()) / (r*r*r));
 
       // Calculate the acceleration for the body
-      double acc = f / spBody->getMass();
-
-      // Create an acceleration vector
-      Vector3 accVec = spSun->getPosition() - spBody->getPosition();;
-      accVec = accVec * (acc * delta);
+      Vector3 A = F / spBody->getMass();
 
       // Update velocity
-      Vector3 velocity = spBody->getVelocity() + accVec;
-      spBody->setVelocity(velocity);
+      Vector3 V = spBody->getVelocity() + A;
+      spBody->setVelocity(V);
    }
 
    for (auto spCelestialBody : m_celestialBodies)

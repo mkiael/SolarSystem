@@ -3,7 +3,7 @@
 Earth::Earth()
 : AbstractCelestialBody()
 {
-   m_position.setX(8.0);
+   m_position.setX(10.0);
    m_position.setY(0.0);
    m_velocity.setY(1.0);
    m_mass = 1.0;

@@ -19,3 +19,9 @@ Vertex::~Vertex()
 {
 
 }
+
+void Vertex::setTextureCoord(double x, double y)
+{
+   m_textureCoord[0] = x;
+   m_textureCoord[1] = y;
+}

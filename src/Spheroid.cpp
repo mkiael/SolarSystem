@@ -116,24 +116,31 @@ void Spheroid::subDivide(unsigned times, Triangle current)
    }
 
    // Create 3 new vectors between all the others
-   Vector3 p1 = (current.getV1().getPos() + current.getV2().getPos()) / 2.0;
-   Vector3 p2 = (current.getV2().getPos() + current.getV3().getPos()) / 2.0;
-   Vector3 p3 = (current.getV3().getPos() + current.getV1().getPos()) / 2.0 ;
+   Vector3 vecP1 = (current.getV1().getPos() + current.getV2().getPos()) / 2.0;
+   Vector3 vecP2 = (current.getV2().getPos() + current.getV3().getPos()) / 2.0;
+   Vector3 vecP3 = (current.getV3().getPos() + current.getV1().getPos()) / 2.0 ;
 
    //normalize them
-   p1.normalize();
-   p2.normalize();
-   p3.normalize();
+   vecP1.normalize();
+   vecP2.normalize();
+   vecP3.normalize();
 
-   p1 = p1 * m_radius;
-   p2 = p2 * m_radius;
-   p3 = p3 * m_radius;
+   vecP1 = vecP1 * m_radius;
+   vecP2 = vecP2 * m_radius;
+   vecP3 = vecP3 * m_radius;
 
    //Send the 4 new triangles into Recursion hell
-   subDivide(times-1, Triangle( Vertex(current.getV1()), Vertex(p1), Vertex(p3)));
-   subDivide(times-1, Triangle( Vertex(current.getV2()), Vertex(p2), Vertex(p1)));
-   subDivide(times-1, Triangle( Vertex(current.getV3()), Vertex(p3), Vertex(p2)));
-   subDivide(times-1, Triangle( Vertex(p1)  , Vertex(p2), Vertex(p3)));
+   Vertex vertex1(vecP1);
+   vertex1.setTextureCoord(0,0);
+   Vertex vertex2(vecP2);
+   vertex2.setTextureCoord(1,0);
+   Vertex vertex3(vecP3);
+   vertex3.setTextureCoord(0,1);
+
+   subDivide(times-1, Triangle( Vertex(current.getV1()), vertex1, vertex3));
+   subDivide(times-1, Triangle( Vertex(current.getV2()), vertex2, vertex1));
+   subDivide(times-1, Triangle( Vertex(current.getV3()), vertex3, vertex2));
+   subDivide(times-1, Triangle( vertex1  , vertex2, vertex3));
 }
 
 void Spheroid::draw(GLfloat x, GLfloat y, GLfloat z) const

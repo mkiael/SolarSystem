@@ -1,6 +1,10 @@
 SolarSystem
 ===========
 
+CONTROLS:
+Left Click Hold + Mouse	= 	Rotate 
+Mouse Scroll 		= 	Zoom in/out
+
 TODO:
 * Add all Planets
 * Scaleable time!
@@ -10,3 +14,5 @@ TODO:
 DONE:
 * Vector, Vertex and Triangle classes
 * Render a scaleable icosphere
+* Added zoom (scroll)
+* Added Rotation(left click + mouse

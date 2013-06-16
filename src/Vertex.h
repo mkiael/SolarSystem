@@ -10,11 +10,14 @@ public:
 
    ~Vertex();
 
+   void setTextureCoord(double x, double y);
+
    //Set/Get Position
    const Vector3 &getPos() const
    {
       return m_position;
    }
+
    void setPos(Vector3 pos)
    {
       m_position = pos;
@@ -46,6 +49,7 @@ public:
 
 
 private:
+   double m_textureCoord[2];
    Vector3 m_position;
    Vector3 m_normal;
    Vector3 m_color;

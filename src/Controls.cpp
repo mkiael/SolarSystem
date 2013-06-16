@@ -7,7 +7,7 @@ Controls::Controls()
 
 }
 
-void Controls::update(double dt)
+void Controls::update()
 {
    m_mouseXspeed = m_mouseX;
    m_mouseYspeed = m_mouseY;

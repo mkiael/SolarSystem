@@ -8,9 +8,9 @@ Observer::Observer()
    m_camera.setFrustrum(-1.0, 1.0, -1.0, 1.0, 1.0, 1000.0);
 }
 
-void Observer::updateControls(double dt)
+void Observer::updateControls()
 {
-   m_controls.update(dt);
+   m_controls.update();
 }
 
 void Observer::updateView()

@@ -17,7 +17,7 @@ public:
    bool LeftMouseButton();
 
 
-   void update(double dt);
+   void update();
 
 private:
    int m_mouseX, m_mouseY;

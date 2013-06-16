@@ -12,7 +12,7 @@ class Observer :IPlayer
 public:
    Observer();
 
-   void updateControls(double dt) ;
+   void updateControls() ;
    void updateView();
    Camera m_camera;
    Controls m_controls;

@@ -41,7 +41,7 @@ int main(int argc, char** argv)
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       glLoadIdentity();
 
-      pPlayer->updateControls(delta);
+      pPlayer->updateControls();
       pPlayer->updateView();
 
       spSolarSystem->simulate();

@@ -11,7 +11,7 @@ public:
 
    ~Sun();
 
-   void draw(double delta);
+   void doRender();
 
 };
 

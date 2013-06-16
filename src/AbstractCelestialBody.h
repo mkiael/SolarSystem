@@ -5,6 +5,7 @@
 #include "ISolarSystem.h"
 #include "Spheroid.h"
 #include "Vector3.h"
+#include "State.h"
 
 class AbstractCelestialBody : public ICelestialBody
 {
@@ -12,19 +13,13 @@ public:
 
    virtual ~AbstractCelestialBody();
 
-   void setVelocity(const Vector3& velocity)
-   {
-      m_velocity = velocity;
-   }
+   void simulate(const Vector3& f, double t, double dt);
 
-   const Vector3& getPosition() const
-   {
-      return m_position;
-   }
+   void render(double alpha);
 
-   const Vector3& getVelocity() const
+   const State& getState() const
    {
-      return m_velocity;
+      return m_currentState;
    }
 
    double getMass() const
@@ -39,13 +34,15 @@ public:
 
 protected:
 
+   virtual void doRender() = 0;
+
    AbstractCelestialBody();
 
    Spheroid m_sphere;
 
-   Vector3 m_position;
+   State m_previousState;
 
-   Vector3 m_velocity;
+   State m_currentState;
 
    double m_mass;
 

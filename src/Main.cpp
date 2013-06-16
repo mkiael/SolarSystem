@@ -35,18 +35,14 @@ int main(int argc, char** argv)
    ISolarSystemSP spSolarSystem(BigBang::bang());
 
    bool isRunning = true;
-   double oldTime = glfwGetTime();
    while (isRunning)
    {
-      double newTime = glfwGetTime();
-      double delta = newTime - oldTime;
-      oldTime = newTime;
-
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       glLoadIdentity();
       gluLookAt(0.0, 0.0, 20.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-      spSolarSystem->draw(delta*10.0);
+      spSolarSystem->simulate();
+      spSolarSystem->render();
 
       glfwSwapBuffers();
 

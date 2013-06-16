@@ -13,7 +13,7 @@ public:
 
    ~Earth();
 
-   void draw(double delta);
+   void doRender();
 
 };
 

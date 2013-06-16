@@ -12,8 +12,11 @@ public:
 
    virtual ~ISolarSystem() {}
 
-   //! Draws the solar system.
-   virtual void draw(double delta) = 0;
+   //! Make the simulation step
+   virtual void simulate() = 0;
+
+   //! Draw the solar system.
+   virtual void render() = 0;
 
 };
 

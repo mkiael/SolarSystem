@@ -1,13 +1,20 @@
 #include "SolarSystem.h"
 #include "Vector3.h"
+#include "GL/glfw.h"
 
 // TBR
 #include <iostream>
 
 static const double G = 6.674e-11;
+static const double dt = 0.01;
 
 SolarSystem::SolarSystem()
 : m_celestialBodies()
+, m_time(0.0)
+, m_currentTime(0.0)
+, m_newTime(0.0)
+, m_frameTime(0.0)
+, m_accumulator(0.0)
 {
 }
 
@@ -15,32 +22,49 @@ SolarSystem::~SolarSystem()
 {
 }
 
-void SolarSystem::draw(double delta)
+void SolarSystem::simulate()
 {
-   auto spSun = m_celestialBodies[0];
-   for (unsigned int i = 1; i < m_celestialBodies.size(); ++i)
+   double newTime = glfwGetTime();
+   double frameTime = newTime - m_currentTime;
+   m_currentTime = newTime;
+
+   if (frameTime > 0.25)
    {
-      auto spBody = m_celestialBodies[i];
-
-      Vector3 oldPosition = spBody->getPosition() - spBody->getVelocity() * delta;
-
-      Vector3 R = spSun->getPosition() - spBody->getPosition();
-
-      double r = vectorMag(R);
-
-      Vector3 F = R * ((G * spSun->getMass() * spBody->getMass()) / (r*r*r));
-
-      // Calculate the acceleration for the body
-      Vector3 A = F / spBody->getMass();
-
-      // Update velocity
-      Vector3 V = spBody->getVelocity() + A;
-      spBody->setVelocity(V);
+      frameTime = 0.25;
    }
+
+   m_accumulator += frameTime;
+
+   while (m_accumulator >= dt)
+   {
+      auto spSun = m_celestialBodies[0];
+      auto sunState = spSun->getState();
+      for (unsigned int i = 1; i < m_celestialBodies.size(); ++i)
+      {
+         auto spBody = m_celestialBodies[i];
+         auto bodyState = spBody->getState();
+
+         Vector3 r = sunState.getPosition() - bodyState.getPosition();
+
+         double rMag = vectorMag(r);
+
+         Vector3 f = r * ((G * spSun->getMass() * spBody->getMass()) / (rMag*rMag*rMag));
+
+         spBody->simulate(f, m_time, dt);
+      }
+
+      m_time += dt;
+      m_accumulator -= dt;
+   }
+}
+
+void SolarSystem::render()
+{
+   const double alpha = m_accumulator / dt;
 
    for (auto spCelestialBody : m_celestialBodies)
    {
-      spCelestialBody->draw(delta);
+      spCelestialBody->render(alpha);
    }
 }
 

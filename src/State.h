@@ -1,5 +1,4 @@
-#ifndef STATE_H_
-#define STATE_H_
+#pragma once
 
 #include "Vector3.h"
 
@@ -53,5 +52,3 @@ private:
 
    Vector3 m_velocity;
 };
-
-#endif /* STATE_H_ */

@@ -3,11 +3,8 @@
 #include "BigBang.h"
 #include "Observer.h"
 
-Observer *pPlayer;
-
 void init()
 {
-
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glShadeModel(GL_SMOOTH);
 
@@ -18,13 +15,7 @@ void init()
    glEnable(GL_LIGHT0);
    glEnable(GL_DEPTH_TEST);
    //glEnable(GL_COLOR_MATERIAL); // Why does this need to be off for materials to work!?!?
-
-   //Camera Settings
-   pPlayer = new Observer();
-   glMatrixMode (GL_MODELVIEW);
-
 }
-
 
 int main(int argc, char** argv)
 {
@@ -33,18 +24,29 @@ int main(int argc, char** argv)
    glfwOpenWindow(500, 500, 8, 8, 8, 8, 24, 8, GLFW_WINDOW);
 
    init();
+
+   glMatrixMode(GL_PROJECTION);
+
+   IPlayerSP spObserver(new Observer());
+
+   spObserver->init();
+
+   glMatrixMode(GL_MODELVIEW);
+
    ISolarSystemSP spSolarSystem(BigBang::bang());
 
    bool isRunning = true;
    while (isRunning)
    {
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
       glLoadIdentity();
 
-      pPlayer->updateControls();
-      pPlayer->updateView();
+      spObserver->updateControls();
+      spObserver->updateView();
 
       spSolarSystem->simulate();
+
       spSolarSystem->render();
 
       glfwSwapBuffers();

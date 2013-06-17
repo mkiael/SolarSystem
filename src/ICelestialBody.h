@@ -1,5 +1,4 @@
-#ifndef ICELESTIALBODY_H_
-#define ICELESTIALBODY_H_
+#pragma once
 
 #include <memory>
 #include "Vector3.h"
@@ -24,5 +23,3 @@ public:
 };
 
 typedef std::shared_ptr<ICelestialBody> ICelestialBodySP;
-
-#endif /* ICELESTIALBODY_H_ */

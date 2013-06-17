@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Vertex.h"
-#include "IPrimitive.h"
 
-class Triangle : IPrimitive
+//! @brief A triangle class.
+class Triangle
 {
 public:
+
    Triangle(Vertex v1, Vertex v2, Vertex v3);
 
    void draw() const;
@@ -32,13 +33,17 @@ public:
    }
 
 private:
+
    void setFlatNormals();
+
    void setSmoothNormal();
 
    Vertex m_v1;
+
    Vertex m_v2;
+
    Vertex m_v3;
 
    bool m_smoothOn;
-};
 
+};

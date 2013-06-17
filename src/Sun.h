@@ -1,8 +1,8 @@
-#ifndef SUN_H_
-#define SUN_H_
+#pragma once
 
 #include "AbstractCelestialBody.h"
 
+//! @brief Implementation of the Sun
 class Sun : public AbstractCelestialBody
 {
 public:
@@ -14,5 +14,3 @@ public:
    void doRender();
 
 };
-
-#endif /* SUN_H_ */

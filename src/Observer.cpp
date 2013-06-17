@@ -1,10 +1,14 @@
 #include "Observer.h"
 
 Observer::Observer()
+: m_camera()
+, m_controls()
 {
-   glMatrixMode (GL_PROJECTION);
+}
 
-   m_camera.setViewport(0, 0, (GLsizei) 500, (GLsizei) 500);
+void Observer::init()
+{
+   m_camera.setViewport(0, 0, (GLsizei)500, (GLsizei)500);
    m_camera.setFrustrum(-1.0, 1.0, -1.0, 1.0, 1.0, 1000.0);
 }
 
@@ -16,14 +20,14 @@ void Observer::updateControls()
 void Observer::updateView()
 {
    // Zoom
-   m_camera.setFocus(0.0, 0.0, 20.0 - (double)m_controls.MouseScroll());
+   m_camera.setFocus(0.0, 0.0, 20.0 - m_controls.getMouseScroll());
 
    // Click-hold-rotation
    int rot[3] = {0, 0, 0};
-   if(m_controls.LeftMouseButton())
+   if(m_controls.isLeftMouseButtonPressed())
    {
-      rot[0] = m_controls.mouseXspeed();
-      rot[1] = m_controls.mouseYspeed();
+      rot[0] = m_controls.getMouseSpeedX();
+      rot[1] = m_controls.getMouseSpeedY();
    }
 
    // hard to figure out without any kind of reference point...background perhaps?:)

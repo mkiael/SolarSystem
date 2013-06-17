@@ -1,5 +1,4 @@
-#ifndef SOLARSYSTEM_H_
-#define SOLARSYSTEM_H_
+#pragma once
 
 #include "ISolarSystem.h"
 #include "ICelestialBody.h"
@@ -37,5 +36,3 @@ private:
    double m_accumulator;
 
 };
-
-#endif /* SOLARSYSTEM_H_ */

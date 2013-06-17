@@ -12,12 +12,10 @@ Vertex::Vertex(Vector3 pos)
 , m_normal(0, 0, 0)
 , m_color(0.5, 0.5, 0.5)
 {
-
 }
 
 Vertex::~Vertex()
 {
-
 }
 
 void Vertex::setTextureCoord(double x, double y)

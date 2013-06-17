@@ -1,10 +1,8 @@
-#ifndef EARTH_H_
-#define EARTH_H_
+#pragma once
 
 #include "AbstractCelestialBody.h"
 
-class ISolarSystem;
-
+//! @brief Implementation of the Earth.
 class Earth : public AbstractCelestialBody
 {
 public:
@@ -16,5 +14,3 @@ public:
    void doRender();
 
 };
-
-#endif /* EARTH_H_ */

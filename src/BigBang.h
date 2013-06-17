@@ -1,5 +1,4 @@
-#ifndef BIGBANG_H_
-#define BIGBANG_H_
+#pragma once
 
 #include "ISolarSystem.h"
 
@@ -16,5 +15,3 @@ private:
    BigBang();
 
 };
-
-#endif /* BIGBANG_H_ */

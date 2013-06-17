@@ -2,10 +2,13 @@
 
 #include "Vector3.h"
 
+//! @brief Class for representing a vertex
 class Vertex
 {
 public:
+
    Vertex(double x, double y, double z);
+
    Vertex(Vector3 pos);
 
    ~Vertex();
@@ -45,12 +48,14 @@ public:
       m_color = color;
    }
 
-
-
-
 private:
+
    double m_textureCoord[2];
+
    Vector3 m_position;
+
    Vector3 m_normal;
+
    Vector3 m_color;
+
 };

@@ -1,5 +1,4 @@
-#ifndef ABSTRACTCELESTIALBODY_H_
-#define ABSTRACTCELESTIALBODY_H_
+#pragma once
 
 #include "ICelestialBody.h"
 #include "ISolarSystem.h"
@@ -7,6 +6,7 @@
 #include "Vector3.h"
 #include "State.h"
 
+//! @brief Abstract base class for celestial bodies.
 class AbstractCelestialBody : public ICelestialBody
 {
 public:
@@ -47,5 +47,3 @@ protected:
    double m_mass;
 
 };
-
-#endif /* ABSTRACTCELESTIALBODY_H_ */

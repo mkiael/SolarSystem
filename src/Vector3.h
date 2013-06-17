@@ -1,5 +1,4 @@
-#ifndef VECTOR3_H_
-#define VECTOR3_H_
+#pragma once
 
 #include <math.h>
 
@@ -98,5 +97,3 @@ private:
 double vectorMag(const Vector3& v);
 
 double distance(const Vector3& p1, const Vector3& p2);
-
-#endif /* VECTOR3_H_ */

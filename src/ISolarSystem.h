@@ -1,5 +1,4 @@
-#ifndef ISOLARSYSTEM_H_
-#define ISOLARSYSTEM_H_
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -21,5 +20,3 @@ public:
 };
 
 typedef std::shared_ptr<ISolarSystem> ISolarSystemSP;
-
-#endif /* ISOLARSYSTEM_H_ */

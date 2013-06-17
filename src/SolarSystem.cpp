@@ -2,9 +2,6 @@
 #include "Vector3.h"
 #include "GL/glfw.h"
 
-// TBR
-#include <iostream>
-
 static const double G = 6.674e-11;
 static const double dt = 0.01;
 

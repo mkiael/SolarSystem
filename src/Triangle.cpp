@@ -1,8 +1,6 @@
 #include "Triangle.h"
 #include "Vector3.h"
-
 #include <GL/gl.h>
-#include <GL/glu.h>
 
 Triangle::Triangle(Vertex v1, Vertex v2, Vertex v3)
 : m_v1(v1)

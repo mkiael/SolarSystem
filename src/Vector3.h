@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VECTOR3_H_
+#define VECTOR3_H_
 
 #include <math.h>
 
@@ -46,6 +47,11 @@ public:
    {
       return Vector3(m_x + v.getX(), m_y + v.getY(), m_z + v.getZ());
    }
+
+   Vector3 operator +=(const Vector3& v) const
+      {
+         return *this + Vector3(m_x + v.getX(), m_y + v.getY(), m_z + v.getZ());
+      }
 
    Vector3 operator -(const Vector3& v) const
    {
@@ -97,3 +103,5 @@ private:
 double vectorMag(const Vector3& v);
 
 double distance(const Vector3& p1, const Vector3& p2);
+
+#endif /* VECTOR3_H_ */

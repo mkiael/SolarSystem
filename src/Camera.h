@@ -1,26 +1,34 @@
 #pragma once
 
-#include <GL/glfw.h>
 #include "Vector3.h"
+#include "quat.h"
+
+#include <GL/glfw.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+const float PIOVER180 = PI/180.0f;
 
 class Camera
 {
 public:
+	Camera(); // enum typeOfCam of something?
+	void tick(float seconds = 0.0f);
 
-   Camera();
+protected:
+	void movex(float xmmod);
+	void movey(float ymmod);
+	void movez(float zmmod);
 
-   void setViewport(int x, int y, unsigned width, unsigned height);
+	void rotateX(float xrmod);
+	void rotateY(float yrmod);
 
-   void setFocus(double x, double y, double z);
-
-   void setFrustrum(  double left, double right, double bottom, double top, double nearVal, double farVal);
-
-   void setRotation(double x, double y, double z);
-
-   void alterRotation(double dx, double dy, double dz);
 
 private:
+	Vector3 m_pos;
+	Quaternion m_rotation;
 
-   Vector3 m_rotation;
+	int m_mousef[2];
 
+	float m_sensitivity;
 };

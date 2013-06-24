@@ -8,9 +8,7 @@ public:
 
    virtual void init() = 0;
 
-   virtual void updateControls() = 0;
-
-   virtual void updateView() = 0;
+   virtual void update() = 0;
 
 };
 

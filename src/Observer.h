@@ -2,7 +2,6 @@
 
 #include "IPlayer.h"
 #include "Camera.h"
-#include "Controls.h"
 
 class Observer : public IPlayer
 {
@@ -12,14 +11,10 @@ public:
 
    void init();
 
-   void updateControls() ;
-
-   void updateView();
+   void update();
 
 private:
 
    Camera m_camera;
-
-   Controls m_controls;
 
 };

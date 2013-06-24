@@ -42,8 +42,7 @@ int main(int argc, char** argv)
 
       glLoadIdentity();
 
-      spObserver->updateControls();
-      spObserver->updateView();
+      spObserver->update();
 
       spSolarSystem->simulate();
 

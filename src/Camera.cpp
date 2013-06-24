@@ -1,44 +1,67 @@
 #include "Camera.h"
 
 Camera::Camera()
-: m_rotation(0.0, 0.0, 0.0)
+: m_pos(0, 0, -5)
+, m_rotation(0.0f, 0.0f, 0.0f) //create a fromAxis constructor
+, m_sensitivity(0.01f)
 {
+	m_mousef[0] = 0;
+	m_mousef[1] = 0;
+	m_rotation = 	(Quaternion().FromAxis(PI/4, 0, 1, 0) * Quaternion().FromAxis(PI/4, 1, 0, 0));
+
+   glViewport(0, 0, (GLsizei)500, (GLsizei)500);
+   glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0, 1000.0);
 }
 
-void Camera::setViewport(int x, int y, unsigned width, unsigned height)
+void Camera::movex(float xmmod)
 {
-   glViewport(x, y, width, height);
+	m_pos += Vector3(xmmod, 0.0f, 0.0f);
 }
 
-void Camera::setFrustrum(double left,
-                         double right,
-                         double bottom,
-                         double top,
-                         double nearVal,
-                         double farVal)
+void Camera::movey(float ymmod)
 {
-   glFrustum(left, right, bottom, top, nearVal, farVal);
+	m_pos += Vector3(0.0f, ymmod, 0.0f);
+}
+
+void Camera::movez(float zmmod)
+{
+	m_pos += Vector3(0.0f, 0.0f, zmmod);
+}
+
+void Camera::rotateX(float xrmod)
+{
+	Quaternion nrot;
+	nrot.FromAxis(-xrmod * m_sensitivity, 0, 1, 0);
+	m_rotation = nrot * m_rotation;
+}
+
+void Camera::rotateY(float yrmod)
+{
+	Quaternion nrot;
+	nrot.FromAxis(-yrmod * m_sensitivity, 1, 0, 0);
+	m_rotation = m_rotation * nrot;
 
 }
 
-void Camera::alterRotation(double dx, double dy, double dz)
+void Camera::tick(float seconds)
 {
-   m_rotation.setX(m_rotation.getX()+dx);
-   m_rotation.setY(m_rotation.getY()+dy);
-   m_rotation.setZ(m_rotation.getZ()+dz);
-   setRotation(m_rotation.getX(), m_rotation.getY(), m_rotation.getZ());
-}
+	//Translate
+	m_pos.setZ(-5.0+(double)glfwGetMouseWheel());
+	glTranslatef(m_pos.getX(),m_pos.getY(),m_pos.getZ());
 
-void Camera::setRotation(double x, double y, double z)
-{
-   glRotatef(m_rotation.getX(), 1.f, 0.f, 0.f); // orbit the X axis
-   glRotatef(m_rotation.getY(), 0.f, 1.f, 0.f); // orbit the Y axis
-   glRotatef(m_rotation.getZ(), 0.f, 0.f, 1.f); // orbit the Z axis
-}
+	//rotate
+	int diff[2] = {m_mousef[0], m_mousef[1]};
+	glfwGetMousePos(&m_mousef[0], &m_mousef[1]);
+	diff[0] -= m_mousef[0];
+	diff[1] -= m_mousef[1];
 
-void Camera::setFocus(double x, double y, double z)
-{
-   gluLookAt(x, y, z,    // look from camera XYZ
-             0, 0, 0,    // look at the origin
-             0, 1, 0);   // positive Y up vector
+	if( glfwGetMouseButton(GLFW_MOUSE_BUTTON_MIDDLE) )
+	{
+		rotateX(diff[0]);
+		rotateY(diff[1]);
+	}
+
+	float RotationMatrix[16];
+	m_rotation.ToMatrix16(RotationMatrix);
+	glMultMatrixf(RotationMatrix);
 }
